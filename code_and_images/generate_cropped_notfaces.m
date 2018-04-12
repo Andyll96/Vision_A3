@@ -1,6 +1,7 @@
 % you might want to have as many negative examples as positive examples
 n_have = 0;
 n_want = numel(dir('cropped_training_images_faces/*.jpg'));
+faceList = dir('cropped_training_images_faces/*.jpg');
 
 imageDir = 'images_notfaces';
 imageList = dir(sprintf('%s/*.jpg',imageDir));
@@ -15,6 +16,9 @@ rng(0, 'twister');
 
 x = 1;
 
+num_train = round(n_want*0.8)
+
+%Q3.1
 % generate random 36x36 crops from the non-face images
 while n_have < n_want
    n_have = n_have + 1
@@ -36,15 +40,25 @@ while n_have < n_want
     neg_crop = negative(rx: rx+35, ry: ry+35);
     [nx,ny,np] = size(neg_crop);
     
-    file_n = fullfile(new_imageDir,strcat(int2str(n_have),'_',neg_name));
-    
+    %Q3.2
+    if n_have <= num_train
+        file_n = fullfile(new_imageDir,strcat('Train_',int2str(n_have),'_',neg_name));
+    else
+        file_n = fullfile(new_imageDir,strcat('Test_',int2str(n_have),'_',neg_name));
+    end
         %TODO: some of the cropped images have a dimension of 0
     if nx ~= 0 || ny ~= 0 
         imwrite(neg_crop, file_n);
     end  
 end
 
-
+y = 1;
+%TODO: relabel face images
+while y < 3
+    face_name = faceList(y).name
+    face_path = strcat(faceList(y).folder, '/', face_name);
+    movefile(face_name,strcat('Train', face_name));
+end
 
 
 
