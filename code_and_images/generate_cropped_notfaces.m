@@ -19,7 +19,7 @@ x = 1;
 while n_have < n_want
    n_have = n_have + 1
    if x >= nImages
-       x = 1;
+       x = 1
    else
        x = x + 1
    end
@@ -30,13 +30,13 @@ while n_have < n_want
     
     [ix, iy] = size(negative);
     
-    rx = round(rand(1,1)*((ix - dim)));
-    ry = round(rand(1,1)*((iy - dim)));
+    rx = round(1 + rand(1,1)*((ix-dim)-1));
+    ry = round(1 + rand(1,1)*((iy-dim)-1));
 
-    neg_crop = imcrop(negative, [rx, ry, dim - 1, dim - 1]);
+    neg_crop = negative(rx: rx+35, ry: ry+35);
     [nx,ny,np] = size(neg_crop);
     
-    file_n = fullfile(new_imageDir,strcat(int2str(x),'_',neg_name));
+    file_n = fullfile(new_imageDir,strcat(int2str(n_have),'_',neg_name));
     
         %TODO: some of the cropped images have a dimension of 0
     if nx ~= 0 || ny ~= 0 
