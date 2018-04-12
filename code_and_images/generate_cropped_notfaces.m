@@ -11,33 +11,43 @@ mkdir(new_imageDir);
 
 dim = 36;
 
-%Question 3.1
+rng(0, 'twister');
 
-%while n_have < n_want
-    
-    % generate random 36x36 crops from the non-face images
-    
-%end
+x = 1;
 
-for x = 1:nImages
+% generate random 36x36 crops from the non-face images
+while n_have < n_want
+   n_have = n_have + 1
+   if x >= nImages
+       x = 1;
+   else
+       x = x + 1
+   end
+   
+    neg_name = imageList(x).name;
+    neg_path = strcat(imageDir, '/', neg_name);
+    negative = im2double(rgb2gray(imread(neg_path)));
     
-    im_name = imageList(x).name;
-    im_read = strcat(imageDir,'/',im_name);
-    im = imread(im_read);
-    im = rgb2gray(im);
-    
-    [ix,iy] = size(im);
+    [ix, iy] = size(negative);
     
     rx = round(rand(1,1)*((ix - dim)));
     ry = round(rand(1,1)*((iy - dim)));
-  
-    im_n = imcrop(im, [rx, ry, dim - 1, dim - 1]);
-    [nx,ny,np] = size(im_n);
- 
-    file_n = fullfile(new_imageDir,im_name);
+
+    neg_crop = imcrop(negative, [rx, ry, dim - 1, dim - 1]);
+    [nx,ny,np] = size(neg_crop);
     
-    %TODO: some of the cropped images have a dimension of 0
+    file_n = fullfile(new_imageDir,strcat(int2str(x),'_',neg_name));
+    
+        %TODO: some of the cropped images have a dimension of 0
     if nx ~= 0 || ny ~= 0 
-        imwrite(im_n, file_n);
-    end   
-end 
+        imwrite(neg_crop, file_n);
+    end  
+end
+
+
+
+
+
+
+
+
