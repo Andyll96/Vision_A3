@@ -7,7 +7,7 @@ imageDir = 'images_notfaces';
 imageList = dir(sprintf('%s/*.jpg',imageDir));
 nImages = length(imageList);
 
-new_imageDir = 'cropped_training_images_notfaces';
+new_imageDir = 'labeled_cropped_training_images_notfaces';
 mkdir(new_imageDir);
 
 dim = 36;
@@ -20,6 +20,7 @@ num_train = round(n_want*0.8)
 
 %Q3.1
 % generate random 36x36 crops from the non-face images
+
 while n_have < n_want
    n_have = n_have + 1
    if x >= nImages
@@ -38,7 +39,6 @@ while n_have < n_want
     ry = round(1 + rand(1,1)*((iy-dim)-1));
 
     neg_crop = negative(rx: rx+35, ry: ry+35);
-    [nx,ny,np] = size(neg_crop);
     
     %Q3.2
     if n_have <= num_train
@@ -46,18 +46,30 @@ while n_have < n_want
     else
         file_n = fullfile(new_imageDir,strcat('Test_',int2str(n_have),'_',neg_name));
     end
-        %TODO: some of the cropped images have a dimension of 0
-    if nx ~= 0 || ny ~= 0 
-        imwrite(neg_crop, file_n);
-    end  
+    
+    imwrite(neg_crop, file_n);
+
 end
 
-y = 1;
+new_imageDir = 'labeled_cropped_training_images_faces';
+mkdir(new_imageDir);
+
+y = 1
 %TODO: relabel face images
-while y < 3
-    face_name = faceList(y).name
+while y < n_want
+    y = y + 1
+    
+    face_name = faceList(y).name;
     face_path = strcat(faceList(y).folder, '/', face_name);
-    movefile(face_name,strcat('Train', face_name));
+    face = im2double(imread(face_path));
+    
+    if y <= num_train
+        file_n = fullfile(new_imageDir,strcat('Train_',face_name));
+    else
+        file_n = fullfile(new_imageDir,strcat('Test_',face_name));
+    end
+    
+    imwrite(face, file_n);
 end
 
 
