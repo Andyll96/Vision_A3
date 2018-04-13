@@ -1,3 +1,7 @@
+close all
+clear
+clc
+
 % you might want to have as many negative examples as positive examples
 n_have = 0;
 n_want = numel(dir('cropped_training_images_faces/*.jpg'));
@@ -51,6 +55,7 @@ while n_have < n_want
 
 end
 
+%Q3.2
 new_imageDir = 'labeled_cropped_training_images_faces';
 mkdir(new_imageDir);
 
