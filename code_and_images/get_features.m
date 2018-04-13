@@ -5,8 +5,11 @@ run('C:\Users\Andys\Downloads\vlfeat-0.9.21-bin\vlfeat-0.9.21\toolbox\vl_setup')
 %TODO: CHANGE TO LABELED DIRECTORIES
 %FACES(POSITIVE)
 pos_imageDir = 'labeled_cropped_training_images_faces'; %FACES (POSITIVE) DIRECTORY
-pos_imageList = dir(sprintf('%s/*.jpg',pos_imageDir)); %FACES (POSITIVE) LIST
-pos_nImages = length(pos_imageList); %NUM FACES (POSITIVE)
+pos_imageList_train = dir(sprintf('%s/Train_*.jpg',pos_imageDir)); %FACES (POSITIVE) TRAINING LIST
+pos_imageList_test = dir(sprintf('%s/Test_*.jpg',pos_imageDir)); %FACES (POSITIVE) TEST LIST
+pos_nImages_train = length(pos_imageList_train); %NUM FACES (POSITIVE)TRAINING
+pos_nImages_test= length(pos_imageList_test); %NUM FACES (POSITIVE)TRAINING
+
 
 %NOT FACES (NEGATIVE)
 neg_imageDir = 'labeled_cropped_training_images_notfaces'; %NOT FACES (NEGATIVE) DIRECTORY
