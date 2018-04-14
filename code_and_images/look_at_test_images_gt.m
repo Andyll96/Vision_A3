@@ -1,3 +1,5 @@
+%Andy Llactahuamani
+%500640181
 imageDir = 'test_images';
 imageList = dir( fullfile( imageDir, '*.jpg'));
 

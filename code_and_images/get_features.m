@@ -1,8 +1,10 @@
+%Andy Llactahuamani
+%500640181
 close all
 clear
+clc
 run('C:\Users\Andys\Downloads\vlfeat-0.9.21-bin\vlfeat-0.9.21\toolbox\vl_setup')
 
-%TODO: CHANGE TO LABELED DIRECTORIES
 %FACES(POSITIVE)
 pos_imageDir = 'labeled_cropped_training_images_faces'; %FACES (POSITIVE) DIRECTORY
 
@@ -86,5 +88,5 @@ for i=1:neg_nImages_test
 %     pause;
 end
 
-save('pos_neg_feats.mat','pos_feats_train','pos_feats_test','neg_feats_train','neg_feats_test',...
-'pos_nImages_train','pos_nImages_test','neg_nImages_train','neg_nImages_test')
+%save('pos_neg_feats.mat','pos_feats_train','pos_feats_test','neg_feats_train','neg_feats_test',...
+%'pos_nImages_train','pos_nImages_test','neg_nImages_train','neg_nImages_test')

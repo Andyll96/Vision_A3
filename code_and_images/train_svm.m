@@ -1,3 +1,5 @@
+%Andy Llactahuamani
+%500640181
 %Q3.4
 close all
 clear
@@ -16,6 +18,7 @@ confidences = [pos_feats_train; neg_feats_train]*w + b;
 
 [tp_rate, fp_rate, tn_rate, fn_rate] =  report_accuracy(confidences, labels);
 
+%Q3.5
 feats_test = cat(1,pos_feats_test,neg_feats_test);
 labels_test = cat(1,ones(pos_nImages_test,1),-1*ones(neg_nImages_test,1));
 
