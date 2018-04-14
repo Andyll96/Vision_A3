@@ -1,0 +1,4 @@
+fprintf("The approach taken in this question is that of linear partitioning\n");
+fprintf("The first step being, making sure that the number of positive images matches\n");
+fprintf("the number of negative images while ensuring that they're of the same dimension\n");
+fprintf(" \n");
